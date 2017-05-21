@@ -51,8 +51,15 @@ namespace Sharpness
         {
             //http://www.ishani.org/web/articles/code/clang-win32/
 
-            new SharpnessParser().ParseFile(
-@"C:\Users\jivko\Downloads\SVPullToRefresh-master\SVPullToRefresh-master\SVPullToRefresh\UIScrollView+SVInfiniteScrolling.m", @"C:\Users\Jivko\Downloads");
-        }
+            /// <summary> input your desired file and output path (params: inputFile, outputPath, null ) </summary>
+            //new SharpnessParser().TransformFile(InOut.sourceFolder, InOut.outFolder, null);
+
+            /// <summary> does basically the same as above but doesnt process the header files for example </summary>
+            //new SharpnessParser().ParseFile( InOut.sourceFolder, InOut.outFolder);
+
+            Console.WriteLine("input your path withour quotes:");
+            new InOut().PrintFiles();
+
+}
     }
 }

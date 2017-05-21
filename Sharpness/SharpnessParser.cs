@@ -133,7 +133,7 @@ namespace Sharpness
 
             text = Regex.Replace(text, @"/\*[\w\W]*?\*/", "");
 
-            text = Regex.Replace(text, "^@implementation(.*?)$", "public class$1", RegexOptions.Multiline);
+            text = Regex.Replace(text, "^@implementation(.*?)$", "public class$1 \n{", RegexOptions.Multiline);
             text = text.Replace("@end", "}");
             text = Regex.Replace(text, @"\(CGPoint\)\d*?{([\w\W]*?)}", "new PointF($1)");
             text = Regex.Replace(text, @"\(CGRect\)\d*?{([\w\W]*?)}", "new RectangleF($1)");
@@ -439,7 +439,11 @@ namespace Sharpness
                 p = p.Substring(4, p.Length - 5);
         }
 
-        private Metadata TransformFile(string filePath, string outputDir, Metadata metadata)
+        /// <summary> calls the code from SharpnessParser.cs </summary>
+        /// <param name="filePath"> input file has to be "*.m" </param>
+        /// <param name="outputDir"> output directory </param>
+        /// <param name="metadata"> ??? </param>
+        public Metadata TransformFile(string filePath, string outputDir, Metadata metadata)
         {
             var f = new FileInfo(filePath);
 
@@ -473,7 +477,7 @@ namespace Sharpness
             string text = File.ReadAllText(filePath);
             text = TransformM(text, metadata);
             result += text;
-            File.WriteAllText(@"C:\Users\jivko\Downloads\" + metadata.ClassName + ".cs", result);
+            File.WriteAllText(outputDir + metadata.ClassName + ".cs", result);
 
             return metadata;
         }
